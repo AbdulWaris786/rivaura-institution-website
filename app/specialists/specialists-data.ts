@@ -101,3 +101,32 @@ export const specialistsData: Specialist[] = [
     image: "/Dr-Francis-Johnson.webp",
   },
 ];
+
+import { getAssetPath } from "../utils/assetPath";
+
+export const specialists = [
+  {
+    id: "dr-sreekala-kn",
+    name: "Dr. Sreekala K N",
+    image: getAssetPath("/Dr-Sreekala-KN.webp"),
+    // ...
+  },
+  {
+    id: "dr-francis-johnson",
+    name: "Dr. Francis Johnson",
+    image: getAssetPath("/Dr-Francis-Johnson.webp"),
+    // ...
+  },
+  {
+    id: "dr-sanjeev-s-chandran",
+    name: "Dr. Sanjeev S Chandran",
+    image: getAssetPath("/Dr-Sanjeev-s-chandran.webp"),
+    // ...
+  },
+  {
+    id: "dr-sreelakshmi-ps",
+    name: "Dr. Sreelakshmi P S",
+    image: getAssetPath("/Dr.SREELAKSHMI PS.webp"),
+    // ...
+  },
+];
