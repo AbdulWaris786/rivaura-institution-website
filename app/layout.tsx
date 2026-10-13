@@ -21,7 +21,7 @@ function Header() {
               rel="noopener noreferrer"
               className="underline font-bold hover:text-emerald-100 transition"
             >
-              Rivaura Hospital
+              Rivaura Hospital[cite: 1]
             </a>
           </p>
           <div className="hidden md:flex gap-3 text-[11px] text-teal-100">
@@ -116,45 +116,45 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-[#0F172B] py-12 text-slate-600 text-sm">
+    <footer className="border-t border-slate-200 bg-[#0F172B] py-12 text-slate-400 text-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         <div className="sm:col-span-2">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded bg-[#00897B]" />
-            <h4 className="font-bold text-slate-900 text-base">Rivaura Institute of Health Sciences</h4>
+            <h4 className="font-bold text-white text-base">Rivaura Institute of Health Sciences</h4>
           </div>
-          <p className="text-xs text-slate-600 mt-2.5 max-w-sm leading-relaxed font-medium">
-            Building Skills. Creating Professionals. Shaping a Better Tomorrow[cite: 1]. Direct clinical exposure integrated with Rivaura Hospital[cite: 1].
+          <p className="text-xs text-slate-300 mt-2.5 max-w-sm leading-relaxed font-medium">
+            Building Skills. Creating Professionals. Shaping a Better Tomorrow. Direct clinical exposure integrated with Rivaura Hospital[cite: 1].
           </p>
         </div>
 
         <div>
-          <h5 className="font-bold text-slate-900 text-sm mb-3">Quick Navigation</h5>
+          <h5 className="font-bold text-white text-sm mb-3">Quick Navigation</h5>
           <ul className="space-y-2 text-xs font-semibold">
-            <li><Link href="/services" className="hover:text-teal-700 transition-colors">Our Services</Link></li>
-            <li><Link href="/about" className="hover:text-teal-700 transition-colors">About Us &amp; Values</Link></li>
-            <li><Link href="/vision" className="hover:text-teal-700 transition-colors">Vision &amp; 2030 Roadmap</Link></li>
-            <li><Link href="/learning-models" className="hover:text-teal-700 transition-colors">Learning Models</Link></li>
-            <li><Link href="/contact" className="hover:text-teal-700 transition-colors">Contact Us</Link></li>
+            <li><Link href="/services" className="hover:text-teal-400 transition-colors">Our Services</Link></li>
+            <li><Link href="/about" className="hover:text-teal-400 transition-colors">About Us &amp; Values</Link></li>
+            <li><Link href="/vision" className="hover:text-teal-400 transition-colors">Vision &amp; 2030 Roadmap</Link></li>
+            <li><Link href="/learning-models" className="hover:text-teal-400 transition-colors">Learning Models</Link></li>
+            <li><Link href="/contact" className="hover:text-teal-400 transition-colors">Contact Us</Link></li>
           </ul>
         </div>
 
         <div>
-          <h5 className="font-bold text-slate-900 text-sm mb-3">Parent Hospital</h5>
-          <p className="text-xs text-slate-600 leading-relaxed font-medium">
+          <h5 className="font-bold text-white text-sm mb-3">Parent Hospital</h5>
+          <p className="text-xs text-slate-300 leading-relaxed font-medium">
             Bedside rotations and supervised patient training conducted inside Rivaura Hospital[cite: 1].
           </p>
           <a
             href="https://www.rivaurahospital.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-teal-700 hover:underline mt-2.5 inline-block font-bold"
+            className="text-xs text-teal-400 hover:underline mt-2.5 inline-block font-bold"
           >
             Visit Rivaura Hospital ↗
           </a>
         </div>
       </div>
-      <div className="mt-8 sm:mt-12 border-t border-slate-200 pt-6 text-center text-xs text-slate-500 font-medium px-4">
+      <div className="mt-8 sm:mt-12 border-t border-slate-800 pt-6 text-center text-xs text-slate-500 font-medium px-4">
         © 2026 Rivaura Institute of Health Sciences. All rights reserved.
       </div>
     </footer>
@@ -162,8 +162,16 @@ function Footer() {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const isProd = process.env.NODE_ENV === "production";
+
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        {isProd && <base href="/rivaura-institution-website/" />}
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/logo.jpeg" />
+      </head>
       <body className="min-h-screen flex flex-col bg-white">
         <Header />
         <div className="flex-1">{children}</div>
