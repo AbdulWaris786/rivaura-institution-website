@@ -41,7 +41,7 @@ export default function Header() {
             </div>
             <div className="flex flex-col">
               <span className="text-base sm:text-lg font-bold tracking-tight text-white leading-tight">
-                RIVAURA
+                LIVAURA
               </span>
               <span className="text-[9px] sm:text-[10px] tracking-wider text-teal-400 uppercase font-semibold">
                 Institute of Health Sciences

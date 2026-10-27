@@ -8,7 +8,7 @@ export default function Navbar() {
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-bold text-white shadow-md shadow-indigo-600/30">
             R
           </span>
-          <span className="text-xl font-bold tracking-tight text-white">Rivaura</span>
+          <span className="text-xl font-bold tracking-tight text-white">Livaura</span>
         </Link>
 
         <nav className="flex items-center gap-6 text-sm font-medium text-slate-300">

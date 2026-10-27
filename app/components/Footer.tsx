@@ -5,7 +5,7 @@ export default function Footer() {
       className="relative z-50 w-full border-t border-slate-800 py-8 text-center text-sm text-slate-400"
     >
       <div className="mx-auto max-w-6xl px-6">
-        <p>© {new Date().getFullYear()} Rivaura. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Livaura. All rights reserved.</p>
       </div>
     </footer>
   );

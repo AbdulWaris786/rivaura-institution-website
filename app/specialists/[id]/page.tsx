@@ -1,21 +1,21 @@
-import { notFound } from "next/navigation";
 import { specialistsData } from "../specialists-data";
 import SpecialistProfileClient from "./SpecialistProfileClient";
+import { notFound } from "next/navigation";
 
-// Required for Next.js output: "export"
+// Required for static site generation with output: 'export'
 export function generateStaticParams() {
   return specialistsData.map((doc) => ({
     id: doc.id,
   }));
 }
 
-interface PageProps {
+export default async function SpecialistPage({
+  params,
+}: {
   params: Promise<{ id: string }>;
-}
-
-export default async function SpecialistPage({ params }: PageProps) {
+}) {
   const { id } = await params;
-  const doctor = specialistsData.find((doc) => doc.id === id);
+  const doctor = specialistsData.find((d) => d.id === id);
 
   if (!doctor) {
     notFound();

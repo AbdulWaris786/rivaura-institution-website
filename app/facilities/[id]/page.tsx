@@ -2,18 +2,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { facilitiesData } from "../facilities-data";
 
-// Pre-render all facility pages at build time
+// Required for output: 'export'
 export function generateStaticParams() {
-  return facilitiesData.map((f) => ({
-    id: f.id,
+  return facilitiesData.map((fac) => ({
+    id: fac.id,
   }));
 }
 
-interface PageProps {
+export default async function FacilityDetailPage({
+  params,
+}: {
   params: Promise<{ id: string }>;
-}
-
-export default async function FacilityDetailPage({ params }: PageProps) {
+}) {
   const { id } = await params;
   const facility = facilitiesData.find((f) => f.id === id);
 
@@ -22,106 +22,74 @@ export default async function FacilityDetailPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen bg-white text-slate-900 pb-20">
-      {/* Top Breadcrumb Navigation */}
-      <div className="border-b border-slate-200 bg-slate-50 py-4 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+    <main className="min-h-screen bg-white text-slate-900 pb-20 selection:bg-teal-700 selection:text-white">
+      {/* Top Breadcrumb */}
+      <div className="border-b border-slate-200 bg-slate-50 py-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Link
             href="/services#why-choose-section"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-teal-800 hover:text-teal-600 transition"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-800 hover:text-teal-600 transition"
           >
-            <span>←</span>
-            <span>Back to All Facilities</span>
+            <span>← Back to Facilities</span>
           </Link>
-          <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-            Clinical Infrastructure
+          <span className="text-[11px] font-mono font-medium text-slate-500">
+            Livaura Campus Infrastructure
           </span>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14">
-        {/* Main Header & Image Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* Left Column: Framed Image & Specs */}
-          <div className="lg:col-span-5">
-            <div className="sticky top-24 rounded-3xl border border-slate-200 bg-slate-50 p-4 shadow-sm space-y-4">
-              <div className="relative aspect-[16/11] w-full rounded-2xl overflow-hidden bg-slate-100 border border-slate-200">
+          {/* Left Column: Image & Highlights */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+              <div className="relative aspect-[16/11] w-full overflow-hidden bg-slate-100">
                 <img
                   src={facility.image}
                   alt={facility.title}
                   className="w-full h-full object-cover object-center"
                 />
-                <span className="absolute top-3 right-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-teal-800 border border-slate-200 shadow-2xs">
+                <span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-teal-800 border border-slate-200 shadow-sm">
                   {facility.facilityBadge}
                 </span>
               </div>
+            </div>
 
-              <div className="pt-2 border-t border-slate-200 space-y-2.5">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-500">Location</span>
-                  <span className="font-semibold text-slate-800 text-right">Rivaura Hospital, Areekode[cite: 2]</span>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-500">Standard</span>
-                  <span className="font-semibold text-teal-800">Clinical Establishment Act Compliant[cite: 2]</span>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-slate-500">Access</span>
-                  <span className="font-semibold text-slate-800">Supervised Student Rotations[cite: 4]</span>
-                </div>
-              </div>
-
-              <div className="rounded-xl bg-teal-50/70 p-3.5 border border-teal-200/80">
-                <span className="text-[10px] uppercase font-bold text-teal-800 block mb-1">
-                  Core Technical Specification
-                </span>
-                <p className="text-xs font-mono text-slate-800 font-semibold">
-                  {facility.spec}
-                </p>
-              </div>
-
-              <Link
-                href="/contact"
-                className="block w-full text-center rounded-xl bg-[#00897B] py-3 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-[#00796B] transition active:scale-95"
-              >
-                Inquire to Train in this Facility
-              </Link>
+            <div className="rounded-2xl border border-teal-200 bg-teal-50/70 p-5">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-800 block mb-1">
+                Equipment &amp; Standards
+              </span>
+              <p className="font-mono text-xs text-slate-800 font-bold">
+                {facility.spec}
+              </p>
             </div>
           </div>
 
-          {/* Right Column: Detailed Explanations & Equipment */}
-          <div className="lg:col-span-7 space-y-8">
+          {/* Right Column: Details & Features */}
+          <div className="lg:col-span-6 space-y-6">
             <div>
-              <span className="inline-block rounded-md bg-teal-50 border border-teal-200 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-900 mb-2">
-                {facility.facilityBadge}
+              <span className="inline-block rounded-md bg-teal-50 border border-teal-200 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-teal-800 mb-2">
+                Laboratory Unit
               </span>
-              <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight">
+              <h1 className="text-2xl sm:text-4xl font-black text-slate-950 tracking-tight">
                 {facility.title}
               </h1>
-              <p className="text-sm sm:text-base font-semibold text-teal-700 mt-1.5">
-                {facility.tagline}
+              <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+                {facility.overview || facility.desc}
               </p>
             </div>
 
-            {/* Overview */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-7 shadow-xs">
-              <h2 className="text-sm font-extrabold uppercase tracking-wider text-teal-900 mb-3">
-                Clinical Overview & Student Role[cite: 4]
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 sm:p-7 shadow-2xs">
+              <h2 className="text-sm sm:text-base font-bold text-slate-950 mb-3">
+                Key Learning Features &amp; Equipment
               </h2>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                {facility.overview}
-              </p>
-            </div>
-
-            {/* Key Infrastructure Features */}
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-7 shadow-xs">
-              <h2 className="text-sm font-extrabold uppercase tracking-wider text-teal-900 mb-4">
-                Architectural & Operational Standards
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {facility.keyFeatures.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-800 bg-white p-3 rounded-xl border border-slate-200 font-medium">
+              <div className="space-y-2.5">
+                {(facility.features ?? []).map((feat, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-2.5 text-xs text-slate-800 bg-white p-3 rounded-xl border border-slate-200 font-medium"
+                  >
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-teal-100 text-teal-800 font-bold text-[10px]">
                       ✓
                     </span>
@@ -131,36 +99,28 @@ export default async function FacilityDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            {/* Equipped Technologies */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-7 shadow-xs">
-              <h2 className="text-sm font-extrabold uppercase tracking-wider text-teal-900 mb-3">
-                Available Equipment & Diagnostic Systems[cite: 1]
-              </h2>
-              <ul className="space-y-2.5">
-                {facility.equipmentList.map((eq, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 font-medium leading-relaxed">
-                    <span className="h-2 w-2 rounded-full bg-teal-600 mt-1.5 shrink-0" />
-                    <span>{eq}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-2xs space-y-3">
+              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                Admissions &amp; Campus Tours
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Campus visits and laboratory walk-throughs are available at our Vettillapara campus, Areekode, Malappuram[cite: 1].
+              </p>
+              <div className="pt-1 flex flex-col sm:flex-row items-center gap-3">
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-auto text-center rounded-xl bg-[#00897B] px-6 py-2.5 text-xs font-bold text-white shadow hover:bg-[#00796B] transition"
+                >
+                  Schedule Campus Visit
+                </Link>
+                <a
+                  href="tel:7356566456"
+                  className="w-full sm:w-auto text-center rounded-xl border border-slate-300 bg-white px-6 py-2.5 text-xs font-bold text-slate-800 hover:border-teal-700 hover:text-teal-700 transition"
+                >
+                  Call: 7356566456[cite: 1]
+                </a>
+              </div>
             </div>
-
-            {/* Safety & Quality Protocols */}
-            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-7 shadow-xs">
-              <h2 className="text-sm font-extrabold uppercase tracking-wider text-teal-900 mb-3">
-                Taught Clinical Safety Protocols[cite: 3, 4]
-              </h2>
-              <ul className="space-y-2">
-                {facility.clinicalProtocols.map((cp, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                    <span className="font-mono text-teal-700 font-bold shrink-0">[{idx + 1}]</span>
-                    <span>{cp}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
           </div>
 
         </div>
